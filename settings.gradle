@@ -1,0 +1,3 @@
+rootProject.name = 'alarmeet'
+include 'alarmeet-api'
+include 'alarmeet-common'
