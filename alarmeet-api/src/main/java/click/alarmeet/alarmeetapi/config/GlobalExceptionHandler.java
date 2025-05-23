@@ -17,6 +17,7 @@ import click.alarmeet.alarmeetcommon.exception.constant.StatusCode;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+	@ExceptionHandler(GlobalErrorException.class)
 	protected ResponseEntity<ErrorResponse> handleGlobalErrorException(GlobalErrorException e) {
 		if (e.getBaseErrorCode().getStatusCode().getCode() >= StatusCode.INTERNAL_SERVER_ERROR.getCode()) {
 			// monitoring
