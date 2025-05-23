@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Update;
 
 import com.mongodb.client.result.UpdateResult;
 
+import click.alarmeet.alarmeetapi.apis.users.constant.UserFieldConstants;
 import click.alarmeet.alarmeetapi.apis.users.domain.User;
 import click.alarmeet.alarmeetcommon.mongodb.MongoDBException;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,8 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 	@Override
 	public void addGroupId(ObjectId userId, ObjectId groupId) {
 		UpdateResult updateResult = mongoTemplate.updateFirst(
-			query(where("_id").is(userId)),
-			new Update().addToSet("groupIds", groupId),
+			query(where(UserFieldConstants.ID).is(userId)),
+			new Update().addToSet(UserFieldConstants.GROUP_IDS, groupId),
 			User.class
 		);
 		if (updateResult.getMatchedCount() == 0) {
