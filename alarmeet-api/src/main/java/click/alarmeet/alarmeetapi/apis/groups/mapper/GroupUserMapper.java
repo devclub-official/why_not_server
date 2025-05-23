@@ -1,5 +1,6 @@
 package click.alarmeet.alarmeetapi.apis.groups.mapper;
 
+import org.bson.types.ObjectId;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -14,5 +15,5 @@ public interface GroupUserMapper {
 	@Mapping(target = "nickname", source = "userReq.nickname")
 	@Mapping(target = "profileImageUrl", source = "userReq.profileImageUrl")
 	@Mapping(target = "role", source = "role")
-	GroupUser toGroupUser(String userId, GroupRole role, GroupCreateDto.GroupCreateUserReq userReq);
+	GroupUser toGroupUser(ObjectId userId, GroupRole role, GroupCreateDto.GroupCreateUserReq userReq);
 }

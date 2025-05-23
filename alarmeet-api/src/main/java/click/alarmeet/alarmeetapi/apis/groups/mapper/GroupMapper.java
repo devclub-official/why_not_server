@@ -2,6 +2,7 @@ package click.alarmeet.alarmeetapi.apis.groups.mapper;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -21,7 +22,7 @@ public interface GroupMapper {
 	@Mapping(target = "description", source = "groupReq.description")
 	@Mapping(target = "imageUrl", source = "groupReq.imageUrl")
 	@Mapping(target = "users", source = "groupUser", qualifiedByName = "groupUserToGroupUsers")
-	Group toGroup(String userId, GroupCreateGroupReq groupReq, GroupUser groupUser);
+	Group toGroup(ObjectId userId, GroupCreateGroupReq groupReq, GroupUser groupUser);
 
 	@Named("groupUserToGroupUsers")
 	default List<GroupUser> toGroupUsers(

@@ -2,6 +2,8 @@ package click.alarmeet.alarmeetapi.apis.groups.domain;
 
 import java.util.Objects;
 
+import org.bson.types.ObjectId;
+
 import click.alarmeet.alarmeetapi.apis.groups.constant.GroupRole;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -13,13 +15,13 @@ import lombok.ToString;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class GroupUser {
-	private String id;
+	private ObjectId id;
 	private String nickname;
 	private String profileImageUrl;
 	private GroupRole role;
 
 	@Builder
-	public GroupUser(String id, String nickname, String profileImageUrl, GroupRole role) {
+	public GroupUser(ObjectId id, String nickname, String profileImageUrl, GroupRole role) {
 		validate(id, nickname, role);
 
 		this.id = id;
@@ -28,7 +30,7 @@ public class GroupUser {
 		this.role = role;
 	}
 
-	private void validate(String id, String nickname, GroupRole role) {
+	private void validate(ObjectId id, String nickname, GroupRole role) {
 		Objects.requireNonNull(id, "Group user id cannot be null");
 		Objects.requireNonNull(nickname, "Group user nickname cannot be null");
 		Objects.requireNonNull(role, "Group user role cannot be null");

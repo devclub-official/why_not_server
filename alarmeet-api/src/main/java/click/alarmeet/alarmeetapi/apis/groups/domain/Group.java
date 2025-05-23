@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -15,14 +16,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Document(collection = "group")
+@Document(collection = "groups")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class Group {
 	@Id
-	private String id;
-	private String ownerId;
+	private ObjectId id;
+	private ObjectId ownerId;
 	private String name;
 	private String description;
 	private String imageUrl;
@@ -31,7 +32,7 @@ public class Group {
 	private LocalDateTime createdAt;
 
 	@Builder
-	public Group(String ownerId, String name, String description, String imageUrl, List<GroupUser> users) {
+	public Group(ObjectId ownerId, String name, String description, String imageUrl, List<GroupUser> users) {
 		validate(ownerId, name, users);
 
 		this.ownerId = ownerId;
@@ -41,7 +42,7 @@ public class Group {
 		this.users = users;
 	}
 
-	private void validate(String ownerId, String name, List<GroupUser> users) {
+	private void validate(ObjectId ownerId, String name, List<GroupUser> users) {
 		Objects.requireNonNull(ownerId, "Group owner id cannot be null");
 		Objects.requireNonNull(name, "Group name cannot be null");
 		if (users.isEmpty()) {
