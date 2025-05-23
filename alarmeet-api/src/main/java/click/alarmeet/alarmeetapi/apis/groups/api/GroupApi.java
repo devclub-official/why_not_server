@@ -13,7 +13,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public interface GroupApi {
 	@Operation(summary = "그룹 생성 api")
 	@ApiResponses(value = {
-		@ApiResponse(responseCode = "201", description = "그룹 생성")
+		@ApiResponse(responseCode = "201", description = "그룹 생성"),
+		@ApiResponse(responseCode = "409", description = "그룹 수 제한 초과")
 	})
 	void createGroup(@RequestBody @Validated GroupCreateDto.GroupCreateReq group);
 }
