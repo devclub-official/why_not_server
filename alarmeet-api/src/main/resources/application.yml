@@ -12,3 +12,7 @@ logging:
     org.springframework.data.mongodb.core.MongoTemplate: DEBUG
     org.mongodb.driver.protocol.command: DEBUG
     org.mongodb.driver.cluster: INFO
+
+springdoc:
+  cache:
+    disabled: true
