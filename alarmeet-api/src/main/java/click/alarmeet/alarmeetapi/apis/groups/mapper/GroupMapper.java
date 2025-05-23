@@ -8,7 +8,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 import click.alarmeet.alarmeetapi.apis.groups.domain.Group;
-import click.alarmeet.alarmeetapi.apis.groups.domain.GroupUser;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupCreateDto.GroupCreateGroupReq;
 import click.alarmeet.alarmeetapi.config.MapStructBaseConfig;
 
@@ -22,11 +21,11 @@ public interface GroupMapper {
 	@Mapping(target = "description", source = "groupReq.description")
 	@Mapping(target = "imageUrl", source = "groupReq.imageUrl")
 	@Mapping(target = "users", source = "groupUser", qualifiedByName = "groupUserToGroupUsers")
-	Group toGroup(ObjectId userId, GroupCreateGroupReq groupReq, GroupUser groupUser);
+	Group toGroup(ObjectId userId, GroupCreateGroupReq groupReq, Group.GroupUser groupUser);
 
 	@Named("groupUserToGroupUsers")
-	default List<GroupUser> toGroupUsers(
-		GroupUser groupUser
+	default List<Group.GroupUser> toGroupUsers(
+		Group.GroupUser groupUser
 	) {
 		return List.of(groupUser);
 	}

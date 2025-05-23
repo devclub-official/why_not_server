@@ -10,6 +10,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import click.alarmeet.alarmeetapi.apis.groups.constant.GroupRole;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -47,6 +48,34 @@ public class Group {
 		Objects.requireNonNull(name, "Group name cannot be null");
 		if (users.isEmpty()) {
 			throw new IllegalArgumentException("Group users cannot be empty");
+		}
+	}
+
+	@Getter
+	@NoArgsConstructor(access = AccessLevel.PROTECTED)
+	@ToString
+	public static class GroupUser {
+		private ObjectId id;
+		private String nickname;
+		private String profileImageUrl;
+		private GroupRole role;
+		private LocalDateTime joinedAt;
+
+		@Builder
+		public GroupUser(ObjectId id, String nickname, String profileImageUrl, GroupRole role) {
+			validate(id, nickname, role);
+
+			this.id = id;
+			this.nickname = nickname;
+			this.profileImageUrl = profileImageUrl;
+			this.role = role;
+			this.joinedAt = LocalDateTime.now();
+		}
+
+		private void validate(ObjectId id, String nickname, GroupRole role) {
+			Objects.requireNonNull(id, "Group user id cannot be null");
+			Objects.requireNonNull(nickname, "Group user nickname cannot be null");
+			Objects.requireNonNull(role, "Group user role cannot be null");
 		}
 	}
 }

@@ -5,7 +5,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import click.alarmeet.alarmeetapi.apis.groups.constant.GroupRole;
-import click.alarmeet.alarmeetapi.apis.groups.domain.GroupUser;
+import click.alarmeet.alarmeetapi.apis.groups.domain.Group;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupCreateDto;
 import click.alarmeet.alarmeetapi.config.MapStructBaseConfig;
 
@@ -15,5 +15,5 @@ public interface GroupUserMapper {
 	@Mapping(target = "nickname", source = "userReq.nickname")
 	@Mapping(target = "profileImageUrl", source = "userReq.profileImageUrl")
 	@Mapping(target = "role", source = "role")
-	GroupUser toGroupUser(ObjectId userId, GroupRole role, GroupCreateDto.GroupCreateUserReq userReq);
+	Group.GroupUser toGroupUser(ObjectId userId, GroupRole role, GroupCreateDto.GroupCreateUserReq userReq);
 }
