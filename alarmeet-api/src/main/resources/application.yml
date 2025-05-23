@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: alarmeet-api
+
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+      database: ${MONGODB_DB}
+
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+    org.mongodb.driver.protocol.command: DEBUG
+    org.mongodb.driver.cluster: INFO
