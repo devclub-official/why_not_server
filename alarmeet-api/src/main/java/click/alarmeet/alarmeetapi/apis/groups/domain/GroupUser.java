@@ -1,5 +1,6 @@
 package click.alarmeet.alarmeetapi.apis.groups.domain;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import org.bson.types.ObjectId;
@@ -19,6 +20,7 @@ public class GroupUser {
 	private String nickname;
 	private String profileImageUrl;
 	private GroupRole role;
+	private LocalDateTime joinedAt;
 
 	@Builder
 	public GroupUser(ObjectId id, String nickname, String profileImageUrl, GroupRole role) {
@@ -28,6 +30,7 @@ public class GroupUser {
 		this.nickname = nickname;
 		this.profileImageUrl = profileImageUrl;
 		this.role = role;
+		this.joinedAt = LocalDateTime.now();
 	}
 
 	private void validate(ObjectId id, String nickname, GroupRole role) {
