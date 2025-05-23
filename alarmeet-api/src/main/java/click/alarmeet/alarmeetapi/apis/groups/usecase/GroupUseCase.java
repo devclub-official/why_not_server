@@ -30,7 +30,7 @@ public class GroupUseCase {
 
 	private final UserSearchService userSearchService;
 
-	public Group createGroup(String userId, GroupCreateReq groupReq) {
+	public void createGroup(String userId, GroupCreateReq groupReq) {
 		ObjectId userOid = new ObjectId(userId);
 
 		if (groupSearchService.countByOwnerId(userOid) > GROUP_COUNT_MAX) {
@@ -46,7 +46,5 @@ public class GroupUseCase {
 		);
 
 		userSearchService.addGroupId(userOid, group.getId());
-
-		return group;
 	}
 }
