@@ -21,11 +21,11 @@ public class GroupSearchService {
 		return groupRepository.countByLeaderId(leaderId);
 	}
 
-	public List<GroupListItemRes> findGroups(List<ObjectId> groupIds) {
-		return groupRepository.findGroupsByIdIn(groupIds);
+	public List<GroupListItemRes> findAll(List<ObjectId> groupIds) {
+		return groupRepository.findAllByIdIn(groupIds);
 	}
 
-	public Group findGroup(ObjectId id) {
+	public Group find(ObjectId id) {
 		return groupRepository.findById(id).orElseThrow(() -> new GroupErrorException(GroupErrorCode.GROUP_NOT_FOUND));
 	}
 }

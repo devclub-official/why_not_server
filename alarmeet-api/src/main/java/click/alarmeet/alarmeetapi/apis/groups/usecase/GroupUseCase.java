@@ -63,7 +63,7 @@ public class GroupUseCase {
 			throw new GlobalErrorException(GroupErrorCode.GROUP_COUNT_LIMIT_EXCEEDED);
 		}
 
-		Group group = groupSaveService.create(
+		Group group = groupSaveService.save(
 			groupMapper.toGroup(
 				userOid,
 				groupReq.group(),
@@ -76,14 +76,14 @@ public class GroupUseCase {
 
 	public GroupListRes getGroups(String userId) {
 		ObjectId userOid = new ObjectId(userId);
-		User user = userSearchService.findUser(userOid);
+		User user = userSearchService.find(userOid);
 
-		return new GroupListRes(groupSearchService.findGroups(user.getGroupIds()));
+		return new GroupListRes(groupSearchService.findAll(user.getGroupIds()));
 	}
 
 	public GroupDetailRes getGroup(ObjectId groupId, String userId) {
 		ObjectId userOid = new ObjectId(userId);
-		Group group = groupSearchService.findGroup(groupId);
+		Group group = groupSearchService.find(groupId);
 
 		if (!group.isUserExist(userOid)) {
 			throw new GroupErrorException(GroupErrorCode.USER_NOT_IN_GROUP);
@@ -94,31 +94,31 @@ public class GroupUseCase {
 
 	public void updateGroup(ObjectId groupId, String userId, GroupUpdateReq groupReq) {
 		ObjectId userOid = new ObjectId(userId);
-		Group group = groupSearchService.findGroup(groupId);
+		Group group = groupSearchService.find(groupId);
 
 		if (!group.isManagerOrHigherUser(userOid)) {
 			throw new GroupErrorException(GroupErrorCode.ROLE_NOT_ALLOWED);
 		}
 
-		groupUpdateService.updateGroup(groupId, groupReq.toUpdateMap());
+		groupUpdateService.update(groupId, groupReq.toUpdateMap());
 	}
 
 	public void deleteGroup(ObjectId groupId, String userId) {
 		ObjectId userOid = new ObjectId(userId);
-		Group group = groupSearchService.findGroup(groupId);
+		Group group = groupSearchService.find(groupId);
 
 		if (!group.isLeaderUser(userOid)) {
 			throw new GroupErrorException(GroupErrorCode.ROLE_NOT_ALLOWED);
 		}
 
-		groupDeleteService.deleteGroup(groupId, userOid);
+		groupDeleteService.delete(groupId, userOid);
 
 		userDeleteService.deleteGroupId(userOid, groupId);
 	}
 
 	public GroupInviteCodeRes createGroupInviteCode(ObjectId groupId, String userId) {
 		ObjectId userOid = new ObjectId(userId);
-		Group group = groupSearchService.findGroup(groupId);
+		Group group = groupSearchService.find(groupId);
 
 		if (!group.isManagerOrHigherUser(userOid)) {
 			throw new GroupErrorException(GroupErrorCode.ROLE_NOT_ALLOWED);

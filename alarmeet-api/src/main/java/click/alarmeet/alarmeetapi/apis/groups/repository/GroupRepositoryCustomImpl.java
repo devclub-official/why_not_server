@@ -23,7 +23,7 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
 	private final MongoUpdateBuilder updateBuilder;
 
 	@Override
-	public void updateGroup(ObjectId groupId, Map<String, Object> updateFields) {
+	public void update(ObjectId groupId, Map<String, Object> updateFields) {
 		UpdateResult updateResult = mongoTemplate.updateFirst(
 			query(where(ID).is(groupId)),
 			updateBuilder.buildUpdate(updateFields),

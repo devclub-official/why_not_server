@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 public class GroupUpdateService {
 	private final GroupRepository groupRepository;
 
-	public void updateGroup(ObjectId groupId, Map<String, Object> updateFields) {
-		groupRepository.updateGroup(groupId, updateFields);
+	public void update(ObjectId groupId, Map<String, Object> updateFields) {
+		groupRepository.update(groupId, updateFields);
 	}
 }
