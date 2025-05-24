@@ -1,4 +1,4 @@
-package click.alarmeet.alarmeetapi.config;
+package click.alarmeet.alarmeetapi.common.mapper;
 
 import static org.mapstruct.MappingConstants.ComponentModel.*;
 
@@ -10,7 +10,8 @@ import org.mapstruct.ReportingPolicy;
 	componentModel = SPRING,
 	unmappedTargetPolicy = ReportingPolicy.WARN,
 	unmappedSourcePolicy = ReportingPolicy.IGNORE,
-	nullValueIterableMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT
+	nullValueIterableMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT,
+	uses = {ObjectIdMapper.class}
 )
 public interface MapStructBaseConfig {
 }
