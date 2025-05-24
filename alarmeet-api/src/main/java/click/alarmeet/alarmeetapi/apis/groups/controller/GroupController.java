@@ -70,4 +70,10 @@ public class GroupController implements GroupApi {
 	public ResponseEntity<GroupInviteCodeRes> createGroupInviteCode(@PathVariable ObjectId groupId) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(groupUseCase.createGroupInviteCode(groupId, TEST_ID));
 	}
+
+	@Override
+	@GetMapping("/{groupId}/invite-code")
+	public ResponseEntity<GroupInviteCodeRes> getGroupInviteCode(@PathVariable ObjectId groupId) {
+		return ResponseEntity.ok(groupUseCase.getGroupInviteCode(groupId));
+	}
 }

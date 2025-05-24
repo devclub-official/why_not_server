@@ -149,4 +149,10 @@ public class GroupUseCase {
 
 		throw new GroupInviteCodeException(CODE_CREATION_RETRY_EXCEEDED);
 	}
+
+	public GroupInviteCodeRes getGroupInviteCode(ObjectId groupId) {
+		return groupInviteCodeMapper.toGroupInviteCodeRes(
+			groupInviteCodeSearchService.findByGroupId(groupId)
+		);
+	}
 }
