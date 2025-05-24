@@ -13,10 +13,10 @@ import click.alarmeet.alarmeetapi.apis.groups.exception.GroupErrorCode;
 import click.alarmeet.alarmeetapi.apis.groups.exception.GroupErrorException;
 import click.alarmeet.alarmeetapi.apis.groups.mapper.GroupMapper;
 import click.alarmeet.alarmeetapi.apis.groups.mapper.GroupUserMapper;
-import click.alarmeet.alarmeetapi.apis.groups.service.GroupSaveService;
+import click.alarmeet.alarmeetapi.apis.groups.service.GroupCreateService;
 import click.alarmeet.alarmeetapi.apis.groups.service.GroupSearchService;
 import click.alarmeet.alarmeetapi.apis.users.domain.User;
-import click.alarmeet.alarmeetapi.apis.users.service.UserSaveService;
+import click.alarmeet.alarmeetapi.apis.users.service.UserCreateService;
 import click.alarmeet.alarmeetapi.apis.users.service.UserSearchService;
 import click.alarmeet.alarmeetapi.common.annotation.UseCase;
 import click.alarmeet.alarmeetcommon.exception.GlobalErrorException;
@@ -30,10 +30,10 @@ public class GroupUseCase {
 	private final GroupMapper groupMapper;
 	private final GroupUserMapper groupUserMapper;
 
-	private final GroupSaveService groupSaveService;
+	private final GroupCreateService groupSaveService;
 	private final GroupSearchService groupSearchService;
 
-	private final UserSaveService userSaveService;
+	private final UserCreateService userSaveService;
 	private final UserSearchService userSearchService;
 
 	public void createGroup(String userId, GroupCreateReq groupReq) {

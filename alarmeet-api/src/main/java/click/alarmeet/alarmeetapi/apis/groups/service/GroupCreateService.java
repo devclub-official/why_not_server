@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class GroupSaveService {
+public class GroupCreateService {
 	private final GroupRepository groupRepository;
 
 	public Group create(Group group) {
