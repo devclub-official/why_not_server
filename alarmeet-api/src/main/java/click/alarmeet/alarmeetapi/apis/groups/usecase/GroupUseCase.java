@@ -16,8 +16,8 @@ import click.alarmeet.alarmeetapi.apis.groups.mapper.GroupUserMapper;
 import click.alarmeet.alarmeetapi.apis.groups.service.GroupCreateService;
 import click.alarmeet.alarmeetapi.apis.groups.service.GroupSearchService;
 import click.alarmeet.alarmeetapi.apis.users.domain.User;
-import click.alarmeet.alarmeetapi.apis.users.service.UserCreateService;
 import click.alarmeet.alarmeetapi.apis.users.service.UserSearchService;
+import click.alarmeet.alarmeetapi.apis.users.service.UserUpdateService;
 import click.alarmeet.alarmeetapi.common.annotation.UseCase;
 import click.alarmeet.alarmeetcommon.exception.GlobalErrorException;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +33,7 @@ public class GroupUseCase {
 	private final GroupCreateService groupSaveService;
 	private final GroupSearchService groupSearchService;
 
-	private final UserCreateService userSaveService;
+	private final UserUpdateService userSaveService;
 	private final UserSearchService userSearchService;
 
 	public void createGroup(String userId, GroupCreateReq groupReq) {

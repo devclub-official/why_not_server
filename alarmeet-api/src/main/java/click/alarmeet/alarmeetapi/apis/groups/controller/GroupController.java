@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,5 +43,10 @@ public class GroupController implements GroupApi {
 	@GetMapping("/{id}")
 	public ResponseEntity<GroupDetailRes> getGroup(@PathVariable ObjectId id) {
 		return ResponseEntity.ok(groupUseCase.getGroup(TEST_ID, id));
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<?> updateGroup(@PathVariable ObjectId id, @RequestBody @Validated GroupCreateReq group) {
+
 	}
 }
