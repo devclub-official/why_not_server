@@ -7,12 +7,15 @@ import org.bson.types.ObjectId;
 import click.alarmeet.alarmeetapi.apis.groups.constant.GroupRole;
 import click.alarmeet.alarmeetapi.apis.groups.domain.Group;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupCreateDto.GroupCreateReq;
+import click.alarmeet.alarmeetapi.apis.groups.dto.GroupListDto.GroupListRes;
 import click.alarmeet.alarmeetapi.apis.groups.exception.GroupErrorCode;
 import click.alarmeet.alarmeetapi.apis.groups.mapper.GroupMapper;
 import click.alarmeet.alarmeetapi.apis.groups.mapper.GroupUserMapper;
 import click.alarmeet.alarmeetapi.apis.groups.service.GroupSaveService;
 import click.alarmeet.alarmeetapi.apis.groups.service.GroupSearchService;
-import click.alarmeet.alarmeetapi.apis.users.service.UserCreateService;
+import click.alarmeet.alarmeetapi.apis.users.domain.User;
+import click.alarmeet.alarmeetapi.apis.users.service.UserSaveService;
+import click.alarmeet.alarmeetapi.apis.users.service.UserSearchService;
 import click.alarmeet.alarmeetapi.common.annotation.UseCase;
 import click.alarmeet.alarmeetcommon.exception.GlobalErrorException;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +31,8 @@ public class GroupUseCase {
 	private final GroupSaveService groupSaveService;
 	private final GroupSearchService groupSearchService;
 
-	private final UserCreateService userCreateService;
+	private final UserSaveService userSaveService;
+	private final UserSearchService userSearchService;
 
 	public void createGroup(String userId, GroupCreateReq groupReq) {
 		ObjectId userOid = new ObjectId(userId);
@@ -45,6 +49,13 @@ public class GroupUseCase {
 			)
 		);
 
-		userCreateService.addGroupId(userOid, group.getId());
+		userSaveService.addGroupId(userOid, group.getId());
+	}
+
+	public GroupListRes getGroupsByOwnerId(String userId) {
+		ObjectId userOid = new ObjectId(userId);
+		User user = userSearchService.findUser(userOid);
+
+		return new GroupListRes(groupSearchService.findGroups(user.getGroupIds()));
 	}
 }
