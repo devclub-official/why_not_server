@@ -68,7 +68,7 @@ public class GroupUseCase {
 		return new GroupListRes(groupSearchService.findGroups(user.getGroupIds()));
 	}
 
-	public GroupDetailRes getGroup(String userId, ObjectId groupId) {
+	public GroupDetailRes getGroup(ObjectId groupId, String userId) {
 		ObjectId userOid = new ObjectId(userId);
 		Group group = groupSearchService.findGroup(groupId);
 
@@ -79,7 +79,7 @@ public class GroupUseCase {
 		return groupMapper.toGroupDetailRes(group);
 	}
 
-	public void updateGroup(String userId, ObjectId groupId, GroupUpdateReq groupReq) {
+	public void updateGroup(ObjectId groupId, String userId, GroupUpdateReq groupReq) {
 		ObjectId userOid = new ObjectId(userId);
 		Group group = groupSearchService.findGroup(groupId);
 
@@ -90,7 +90,7 @@ public class GroupUseCase {
 		groupUpdateService.updateGroup(groupId, groupReq.toUpdateMap());
 	}
 
-	public void deleteGroup(String userId, ObjectId groupId) {
+	public void deleteGroup(ObjectId groupId, String userId) {
 		ObjectId userOid = new ObjectId(userId);
 		Group group = groupSearchService.findGroup(groupId);
 

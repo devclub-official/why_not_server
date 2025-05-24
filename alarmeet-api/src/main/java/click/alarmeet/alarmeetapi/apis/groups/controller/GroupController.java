@@ -47,21 +47,21 @@ public class GroupController implements GroupApi {
 	@Override
 	@GetMapping("/{id}")
 	public ResponseEntity<GroupDetailRes> getGroup(@PathVariable ObjectId id) {
-		return ResponseEntity.ok(groupUseCase.getGroup(TEST_ID, id));
+		return ResponseEntity.ok(groupUseCase.getGroup(id, TEST_ID));
 	}
 
 	@Override
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateGroup(@PathVariable ObjectId id, @RequestBody @Validated GroupUpdateReq group) {
-		groupUseCase.updateGroup(TEST_ID, id, group);
+		groupUseCase.updateGroup(id, TEST_ID, group);
 		return ResponseEntity.noContent().build();
 	}
 
 	@Override
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteGroup(@PathVariable ObjectId id) {
-		groupUseCase.deleteGroup(TEST_ID, id);
-		
+		groupUseCase.deleteGroup(id, TEST_ID);
+
 		return ResponseEntity.noContent().build();
 	}
 }
