@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupCreateDto.GroupCreateReq;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupDetailDto.GroupDetailRes;
-import click.alarmeet.alarmeetapi.apis.groups.dto.GroupInviteCodeDto.GroupInviteCodeRes;
-import click.alarmeet.alarmeetapi.apis.groups.dto.GroupJoinDto.GroupJoinReq;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupListDto.GroupListRes;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupUpdateDto.GroupUpdateReq;
 import click.alarmeet.alarmeetapi.common.response.ErrorResponse;
@@ -63,29 +61,4 @@ public interface GroupApi {
 		@ApiResponse(responseCode = "403", description = "권한 없음", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
 	})
 	ResponseEntity<?> deleteGroup(@PathVariable ObjectId groupId);
-
-	@Operation(summary = "초대 코드 발급", description = "초대 코드 조회 후 없으면 요청")
-	@Parameter(name = "groupId", required = true, in = PATH, schema = @Schema(type = "string"))
-	@ApiResponses(value = {
-		@ApiResponse(responseCode = "201", description = "발급한 코드"),
-		@ApiResponse(responseCode = "403", description = "권한 없음", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-		@ApiResponse(responseCode = "409", description = "코드 생성 횟수 초과", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-	})
-	ResponseEntity<GroupInviteCodeRes> createGroupInviteCode(@PathVariable ObjectId groupId);
-
-	@Operation(summary = "초대 코드 발급", description = "초대 코드 조회")
-	@Parameter(name = "groupId", required = true, in = PATH, schema = @Schema(type = "string"))
-	@ApiResponses(value = {
-		@ApiResponse(responseCode = "200", description = "발급한 코드"),
-		@ApiResponse(responseCode = "404", description = "코드 없음", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-	})
-	ResponseEntity<GroupInviteCodeRes> getGroupInviteCode(@PathVariable ObjectId groupId);
-
-	@Operation(summary = "그룹 참가", description = "초대 코드를 통해 그룹 참가")
-	@ApiResponses(value = {
-		@ApiResponse(responseCode = "201", description = "그룹 참가"),
-		@ApiResponse(responseCode = "404", description = "코드 없음", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-		@ApiResponse(responseCode = "409", description = "참가 최대 4개까지 가능", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-	})
-	ResponseEntity<?> joinGroup(@RequestBody @Validated GroupJoinReq group);
 }
