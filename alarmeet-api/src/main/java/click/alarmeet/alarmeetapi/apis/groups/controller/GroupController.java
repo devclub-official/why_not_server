@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import click.alarmeet.alarmeetapi.apis.groups.api.GroupApi;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupCreateDto.GroupCreateReq;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupDetailDto.GroupDetailRes;
+import click.alarmeet.alarmeetapi.apis.groups.dto.GroupInviteCodeDto.GroupInviteCodeRes;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupListDto.GroupListRes;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupUpdateDto.GroupUpdateReq;
 import click.alarmeet.alarmeetapi.apis.groups.usecase.GroupUseCase;
@@ -61,7 +62,12 @@ public class GroupController implements GroupApi {
 	@DeleteMapping("/{groupId}")
 	public ResponseEntity<?> deleteGroup(@PathVariable ObjectId groupId) {
 		groupUseCase.deleteGroup(groupId, TEST_ID);
-
 		return ResponseEntity.noContent().build();
+	}
+
+	@Override
+	@PostMapping("/{groupId}/invite-code")
+	public ResponseEntity<GroupInviteCodeRes> createGroupInviteCode(@PathVariable ObjectId groupId) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(groupUseCase.createGroupInviteCode(groupId, TEST_ID));
 	}
 }
