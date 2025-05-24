@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class UserCreateService {
+public class UserSaveService {
 	private final UserRepository userRepository;
 
 	public void addGroupId(ObjectId userId, ObjectId groupId) {
