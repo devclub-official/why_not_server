@@ -1,4 +1,4 @@
-package click.alarmeet.alarmeetapi.apis.users.constant;
+package click.alarmeet.alarmeetcommon.mongodb.constant;
 
 public final class UserFieldConstants {
 	public static final String ID = "_id";

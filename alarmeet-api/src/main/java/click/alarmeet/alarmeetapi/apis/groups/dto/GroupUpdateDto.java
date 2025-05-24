@@ -1,6 +1,6 @@
 package click.alarmeet.alarmeetapi.apis.groups.dto;
 
-import static click.alarmeet.alarmeetapi.apis.groups.constant.GroupFieldConstants.*;
+import static click.alarmeet.alarmeetcommon.mongodb.constant.GroupFieldConstants.*;
 
 import java.util.HashMap;
 import java.util.Map;

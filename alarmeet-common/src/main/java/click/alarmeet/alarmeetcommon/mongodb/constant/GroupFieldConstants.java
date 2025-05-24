@@ -1,4 +1,4 @@
-package click.alarmeet.alarmeetapi.apis.groups.constant;
+package click.alarmeet.alarmeetcommon.mongodb.constant;
 
 public final class GroupFieldConstants {
 	public static final String ID = "_id";
