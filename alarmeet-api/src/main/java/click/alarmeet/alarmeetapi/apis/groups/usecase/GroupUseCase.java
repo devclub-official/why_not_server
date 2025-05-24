@@ -15,9 +15,11 @@ import click.alarmeet.alarmeetapi.apis.groups.exception.GroupErrorException;
 import click.alarmeet.alarmeetapi.apis.groups.mapper.GroupMapper;
 import click.alarmeet.alarmeetapi.apis.groups.mapper.GroupUserMapper;
 import click.alarmeet.alarmeetapi.apis.groups.service.GroupCreateService;
+import click.alarmeet.alarmeetapi.apis.groups.service.GroupDeleteService;
 import click.alarmeet.alarmeetapi.apis.groups.service.GroupSearchService;
 import click.alarmeet.alarmeetapi.apis.groups.service.GroupUpdateService;
 import click.alarmeet.alarmeetapi.apis.users.domain.User;
+import click.alarmeet.alarmeetapi.apis.users.service.UserDeleteService;
 import click.alarmeet.alarmeetapi.apis.users.service.UserSearchService;
 import click.alarmeet.alarmeetapi.apis.users.service.UserUpdateService;
 import click.alarmeet.alarmeetapi.common.annotation.UseCase;
@@ -35,9 +37,11 @@ public class GroupUseCase {
 	private final GroupCreateService groupSaveService;
 	private final GroupSearchService groupSearchService;
 	private final GroupUpdateService groupUpdateService;
+	private final GroupDeleteService groupDeleteService;
 
-	private final UserUpdateService userSaveService;
 	private final UserSearchService userSearchService;
+	private final UserUpdateService userSaveService;
+	private final UserDeleteService userDeleteService;
 
 	public void createGroup(String userId, GroupCreateReq groupReq) {
 		ObjectId userOid = new ObjectId(userId);
@@ -84,5 +88,18 @@ public class GroupUseCase {
 		}
 
 		groupUpdateService.updateGroup(groupId, groupReq.toUpdateMap());
+	}
+
+	public void deleteGroup(String userId, ObjectId groupId) {
+		ObjectId userOid = new ObjectId(userId);
+		Group group = groupSearchService.findGroup(groupId);
+
+		if (!group.isLeaderUser(userOid)) {
+			throw new GroupErrorException(GroupErrorCode.ROLE_NOT_ALLOWED);
+		}
+
+		groupDeleteService.deleteGroup(groupId, userOid);
+
+		userDeleteService.deleteGroupId(userOid, groupId);
 	}
 }

@@ -4,6 +4,7 @@ import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,6 +54,14 @@ public class GroupController implements GroupApi {
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateGroup(@PathVariable ObjectId id, @RequestBody @Validated GroupUpdateReq group) {
 		groupUseCase.updateGroup(TEST_ID, id, group);
+		return ResponseEntity.noContent().build();
+	}
+
+	@Override
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteGroup(@PathVariable ObjectId id) {
+		groupUseCase.deleteGroup(TEST_ID, id);
+		
 		return ResponseEntity.noContent().build();
 	}
 }

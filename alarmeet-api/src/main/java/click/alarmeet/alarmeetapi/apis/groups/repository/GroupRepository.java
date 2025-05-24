@@ -11,5 +11,7 @@ import click.alarmeet.alarmeetapi.apis.groups.dto.GroupListDto.GroupListItemRes;
 public interface GroupRepository extends MongoRepository<Group, ObjectId>, GroupRepositoryCustom {
 	long countByLeaderId(ObjectId leaderId);
 
-	List<GroupListItemRes> findGroupsByIdIn(List<ObjectId> groupIds);
+	List<GroupListItemRes> findGroupsByIdIn(List<ObjectId> ids);
+
+	void deleteByIdAndLeaderId(ObjectId id, ObjectId leaderId);
 }

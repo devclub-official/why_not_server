@@ -50,7 +50,15 @@ public interface GroupApi {
 	@Parameter(name = "id", required = true, in = PATH, schema = @Schema(type = "string"))
 	@ApiResponses(value = {
 		@ApiResponse(responseCode = "204", description = "그룹 업데이트"),
-		@ApiResponse(responseCode = "403", description = "그룹 수 제한 초과", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+		@ApiResponse(responseCode = "403", description = "권한 없음", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
 	})
 	ResponseEntity<?> updateGroup(@PathVariable ObjectId id, @RequestBody @Validated GroupUpdateReq group);
+
+	@Operation(summary = "그룹 삭제")
+	@Parameter(name = "id", required = true, in = PATH, schema = @Schema(type = "string"))
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "204", description = "그룹 삭제"),
+		@ApiResponse(responseCode = "403", description = "권한 없음", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+	})
+	ResponseEntity<?> deleteGroup(@PathVariable ObjectId id);
 }

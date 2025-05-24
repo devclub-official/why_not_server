@@ -1,5 +1,6 @@
 package click.alarmeet.alarmeetapi.apis.users.repository;
 
+import static click.alarmeet.alarmeetapi.apis.users.constant.UserFieldConstants.*;
 import static click.alarmeet.alarmeetcommon.mongodb.MongoDBErrorCode.*;
 import static org.springframework.data.mongodb.core.query.Criteria.*;
 import static org.springframework.data.mongodb.core.query.Query.*;
@@ -10,7 +11,6 @@ import org.springframework.data.mongodb.core.query.Update;
 
 import com.mongodb.client.result.UpdateResult;
 
-import click.alarmeet.alarmeetapi.apis.users.constant.UserFieldConstants;
 import click.alarmeet.alarmeetapi.apis.users.domain.User;
 import click.alarmeet.alarmeetcommon.mongodb.MongoDBException;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +22,19 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 	@Override
 	public void addGroupId(ObjectId userId, ObjectId groupId) {
 		UpdateResult updateResult = mongoTemplate.updateFirst(
-			query(where(UserFieldConstants.ID).is(userId)),
-			new Update().addToSet(UserFieldConstants.GROUP_IDS, groupId),
+			query(where(ID).is(userId)),
+			new Update().addToSet(GROUP_IDS, groupId),
+			User.class
+		);
+		if (updateResult.getMatchedCount() == 0) {
+			throw new MongoDBException(DOCUMENT_NOT_FOUND);
+		}
+	}
+
+	public void deleteGroupId(ObjectId userId, ObjectId groupId) {
+		UpdateResult updateResult = mongoTemplate.updateFirst(
+			query(where(ID).is(userId)),
+			new Update().pull(GROUP_IDS, groupId),
 			User.class
 		);
 		if (updateResult.getMatchedCount() == 0) {

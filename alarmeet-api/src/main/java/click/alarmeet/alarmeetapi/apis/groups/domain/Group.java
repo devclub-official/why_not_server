@@ -58,6 +58,10 @@ public class Group {
 		return users.stream().anyMatch(user -> user.getId().equals(id));
 	}
 
+	public boolean isLeaderUser(ObjectId userId) {
+		return userId.equals(leaderId);
+	}
+
 	public boolean isManagerOrHigherUser(ObjectId userId) {
 		return users.stream()
 			.anyMatch(user ->
