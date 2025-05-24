@@ -8,9 +8,10 @@ import lombok.RequiredArgsConstructor;
 public enum GroupErrorCode implements BaseErrorCode {
 	GROUP_NOT_FOUND(StatusCode.NOT_FOUND, "group not found"),
 
-	GROUP_COUNT_LIMIT_EXCEEDED(StatusCode.CONFLICT, "group count limit exceeded"),
+	USER_NOT_IN_GROUP(StatusCode.FORBIDDEN, "user not in group"),
+	ROLE_NOT_ALLOWED(StatusCode.FORBIDDEN, "role not allowed"),
 
-	USER_NOT_IN_GROUP(StatusCode.FORBIDDEN, "user not in group");
+	GROUP_COUNT_LIMIT_EXCEEDED(StatusCode.CONFLICT, "group count limit exceeded");
 
 	private final StatusCode statusCode;
 	private final String message;

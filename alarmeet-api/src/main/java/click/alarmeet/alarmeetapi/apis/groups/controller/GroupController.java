@@ -16,6 +16,7 @@ import click.alarmeet.alarmeetapi.apis.groups.api.GroupApi;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupCreateDto.GroupCreateReq;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupDetailDto.GroupDetailRes;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupListDto.GroupListRes;
+import click.alarmeet.alarmeetapi.apis.groups.dto.GroupUpdateDto.GroupUpdateReq;
 import click.alarmeet.alarmeetapi.apis.groups.usecase.GroupUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,24 +30,29 @@ public class GroupController implements GroupApi {
 
 	private final GroupUseCase groupUseCase;
 
+	@Override
 	@PostMapping
 	public ResponseEntity<?> createGroup(@RequestBody @Validated GroupCreateReq group) {
 		groupUseCase.createGroup(TEST_ID, group);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
+	@Override
 	@GetMapping
 	public ResponseEntity<GroupListRes> getGroups() {
 		return ResponseEntity.ok(groupUseCase.getGroups(TEST_ID));
 	}
 
+	@Override
 	@GetMapping("/{id}")
 	public ResponseEntity<GroupDetailRes> getGroup(@PathVariable ObjectId id) {
 		return ResponseEntity.ok(groupUseCase.getGroup(TEST_ID, id));
 	}
 
+	@Override
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateGroup(@PathVariable ObjectId id, @RequestBody @Validated GroupCreateReq group) {
-
+	public ResponseEntity<?> updateGroup(@PathVariable ObjectId id, @RequestBody @Validated GroupUpdateReq group) {
+		groupUseCase.updateGroup(TEST_ID, id, group);
+		return ResponseEntity.noContent().build();
 	}
 }

@@ -9,12 +9,14 @@ import click.alarmeet.alarmeetapi.apis.groups.domain.Group;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupCreateDto.GroupCreateReq;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupDetailDto.GroupDetailRes;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupListDto.GroupListRes;
+import click.alarmeet.alarmeetapi.apis.groups.dto.GroupUpdateDto.GroupUpdateReq;
 import click.alarmeet.alarmeetapi.apis.groups.exception.GroupErrorCode;
 import click.alarmeet.alarmeetapi.apis.groups.exception.GroupErrorException;
 import click.alarmeet.alarmeetapi.apis.groups.mapper.GroupMapper;
 import click.alarmeet.alarmeetapi.apis.groups.mapper.GroupUserMapper;
 import click.alarmeet.alarmeetapi.apis.groups.service.GroupCreateService;
 import click.alarmeet.alarmeetapi.apis.groups.service.GroupSearchService;
+import click.alarmeet.alarmeetapi.apis.groups.service.GroupUpdateService;
 import click.alarmeet.alarmeetapi.apis.users.domain.User;
 import click.alarmeet.alarmeetapi.apis.users.service.UserSearchService;
 import click.alarmeet.alarmeetapi.apis.users.service.UserUpdateService;
@@ -32,6 +34,7 @@ public class GroupUseCase {
 
 	private final GroupCreateService groupSaveService;
 	private final GroupSearchService groupSearchService;
+	private final GroupUpdateService groupUpdateService;
 
 	private final UserUpdateService userSaveService;
 	private final UserSearchService userSearchService;
@@ -70,5 +73,16 @@ public class GroupUseCase {
 		}
 
 		return groupMapper.toGroupDetailRes(group);
+	}
+
+	public void updateGroup(String userId, ObjectId groupId, GroupUpdateReq groupReq) {
+		ObjectId userOid = new ObjectId(userId);
+		Group group = groupSearchService.findGroup(groupId);
+
+		if (!group.isManagerOrHigherUser(userOid)) {
+			throw new GroupErrorException(GroupErrorCode.ROLE_NOT_ALLOWED);
+		}
+
+		groupUpdateService.updateGroup(groupId, groupReq.toUpdateMap());
 	}
 }

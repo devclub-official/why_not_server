@@ -11,7 +11,6 @@ public interface UserRepositoryCustom {
 	 * @param userId    추가할 사용자 ID
 	 * @param groupId    새로운 그룹 ID
 	 * @throws MongoDBException 404, DOCUMENT_NOT_FOUND 유저 존재하지 않는 경우
-	 * @throws MongoDBException 409, UPDATE_NOT_APPLIED 유저 존재하지 않는 경우
 	 */
 	void addGroupId(ObjectId userId, ObjectId groupId);
 }

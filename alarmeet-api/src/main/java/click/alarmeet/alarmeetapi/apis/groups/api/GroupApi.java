@@ -8,9 +8,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import click.alarmeet.alarmeetapi.apis.groups.dto.GroupCreateDto;
-import click.alarmeet.alarmeetapi.apis.groups.dto.GroupDetailDto;
+import click.alarmeet.alarmeetapi.apis.groups.dto.GroupCreateDto.GroupCreateReq;
+import click.alarmeet.alarmeetapi.apis.groups.dto.GroupDetailDto.GroupDetailRes;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupListDto.GroupListRes;
+import click.alarmeet.alarmeetapi.apis.groups.dto.GroupUpdateDto.GroupUpdateReq;
 import click.alarmeet.alarmeetapi.common.response.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -27,7 +28,7 @@ public interface GroupApi {
 		@ApiResponse(responseCode = "201", description = "그룹 생성"),
 		@ApiResponse(responseCode = "409", description = "그룹 수 제한 초과", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
 	})
-	ResponseEntity<?> createGroup(@RequestBody @Validated GroupCreateDto.GroupCreateReq group);
+	ResponseEntity<?> createGroup(@RequestBody @Validated GroupCreateReq group);
 
 	@Operation(summary = "그룹 조회")
 	@ApiResponses(value = {
@@ -43,5 +44,13 @@ public interface GroupApi {
 		@ApiResponse(responseCode = "403", description = "유저가 해당 그룹에 존재하지 않을 때", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
 		@ApiResponse(responseCode = "404", description = "그룹 존재하지 않을 떄", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
 	})
-	ResponseEntity<GroupDetailDto.GroupDetailRes> getGroup(@PathVariable ObjectId id);
+	ResponseEntity<GroupDetailRes> getGroup(@PathVariable ObjectId id);
+
+	@Operation(summary = "그룹 업데이트")
+	@Parameter(name = "id", required = true, in = PATH, schema = @Schema(type = "string"))
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "204", description = "그룹 업데이트"),
+		@ApiResponse(responseCode = "403", description = "그룹 수 제한 초과", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+	})
+	ResponseEntity<?> updateGroup(@PathVariable ObjectId id, @RequestBody @Validated GroupUpdateReq group);
 }

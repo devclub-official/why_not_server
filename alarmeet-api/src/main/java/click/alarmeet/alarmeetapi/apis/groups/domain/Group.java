@@ -8,6 +8,7 @@ import java.util.Objects;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import click.alarmeet.alarmeetapi.apis.groups.constant.GroupRole;
@@ -31,6 +32,8 @@ public class Group {
 	private List<GroupUser> users = new ArrayList<>();
 	@CreatedDate
 	private LocalDateTime createdAt;
+	@LastModifiedDate
+	private LocalDateTime updatedAt;
 
 	@Builder
 	public Group(ObjectId leaderId, String name, String description, String imageUrl, List<GroupUser> users) {
@@ -53,6 +56,14 @@ public class Group {
 
 	public boolean isUserExist(ObjectId id) {
 		return users.stream().anyMatch(user -> user.getId().equals(id));
+	}
+
+	public boolean isManagerOrHigherUser(ObjectId userId) {
+		return users.stream()
+			.anyMatch(user ->
+				user.getId().equals(userId)
+					&& user.getRole().isManagerOrHigher()
+			);
 	}
 
 	@Getter

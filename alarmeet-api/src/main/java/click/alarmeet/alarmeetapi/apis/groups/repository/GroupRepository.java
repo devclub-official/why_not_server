@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import click.alarmeet.alarmeetapi.apis.groups.domain.Group;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupListDto.GroupListItemRes;
 
-public interface GroupRepository extends MongoRepository<Group, ObjectId> {
+public interface GroupRepository extends MongoRepository<Group, ObjectId>, GroupRepositoryCustom {
 	long countByLeaderId(ObjectId leaderId);
 
 	List<GroupListItemRes> findGroupsByIdIn(List<ObjectId> groupIds);
