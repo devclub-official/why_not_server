@@ -15,6 +15,12 @@ import lombok.RequiredArgsConstructor;
 public class GroupInviteCodeSearchService {
 	private final GroupInviteCodeRepository groupInviteCodeRepository;
 
+	public GroupInviteCode find(String code) {
+		return groupInviteCodeRepository.findById(code).orElseThrow(() ->
+			new GroupInviteCodeException(CODE_NOT_FOUND)
+		);
+	}
+
 	public GroupInviteCode findByGroupId(ObjectId groupId) {
 		return groupInviteCodeRepository.findByGroupId(groupId).orElseThrow(() ->
 			new GroupInviteCodeException(GROUP_ID_NOT_FOUND)

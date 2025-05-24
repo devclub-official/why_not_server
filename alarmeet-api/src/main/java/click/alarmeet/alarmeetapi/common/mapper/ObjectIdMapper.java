@@ -1,11 +1,11 @@
 package click.alarmeet.alarmeetapi.common.mapper;
 
+import static org.mapstruct.MappingConstants.ComponentModel.*;
+
 import org.bson.types.ObjectId;
 import org.mapstruct.Mapper;
 
-@Mapper(
-	config = MapStructBaseConfig.class
-)
+@Mapper(componentModel = SPRING)
 public interface ObjectIdMapper {
 	default String toString(ObjectId id) {
 		return id != null ? id.toHexString() : null;

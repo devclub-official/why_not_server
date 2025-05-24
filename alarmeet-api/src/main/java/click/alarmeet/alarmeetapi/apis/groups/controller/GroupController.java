@@ -17,6 +17,7 @@ import click.alarmeet.alarmeetapi.apis.groups.api.GroupApi;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupCreateDto.GroupCreateReq;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupDetailDto.GroupDetailRes;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupInviteCodeDto.GroupInviteCodeRes;
+import click.alarmeet.alarmeetapi.apis.groups.dto.GroupJoinDto.GroupJoinReq;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupListDto.GroupListRes;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupUpdateDto.GroupUpdateReq;
 import click.alarmeet.alarmeetapi.apis.groups.usecase.GroupUseCase;
@@ -29,13 +30,14 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/api/v1/groups")
 public class GroupController implements GroupApi {
 	private static final String TEST_ID = "682f51877a2d2278d4d3bf88";
+	private static final String TEST_ID_2 = "683204be5d414d8cc0419b72";
 
 	private final GroupUseCase groupUseCase;
 
 	@Override
 	@PostMapping
-	public ResponseEntity<?> createGroup(@RequestBody @Validated GroupCreateReq group) {
-		groupUseCase.createGroup(TEST_ID, group);
+	public ResponseEntity<?> createGroup(@RequestBody @Validated GroupCreateReq req) {
+		groupUseCase.createGroup(TEST_ID, req);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
@@ -53,8 +55,8 @@ public class GroupController implements GroupApi {
 
 	@Override
 	@PutMapping("/{groupId}")
-	public ResponseEntity<?> updateGroup(@PathVariable ObjectId groupId, @RequestBody @Validated GroupUpdateReq group) {
-		groupUseCase.updateGroup(groupId, TEST_ID, group);
+	public ResponseEntity<?> updateGroup(@PathVariable ObjectId groupId, @RequestBody @Validated GroupUpdateReq req) {
+		groupUseCase.updateGroup(groupId, TEST_ID, req);
 		return ResponseEntity.noContent().build();
 	}
 
@@ -75,5 +77,12 @@ public class GroupController implements GroupApi {
 	@GetMapping("/{groupId}/invite-code")
 	public ResponseEntity<GroupInviteCodeRes> getGroupInviteCode(@PathVariable ObjectId groupId) {
 		return ResponseEntity.ok(groupUseCase.getGroupInviteCode(groupId));
+	}
+
+	@Override
+	@PostMapping("/join")
+	public ResponseEntity<?> joinGroup(@RequestBody @Validated GroupJoinReq req) {
+		groupUseCase.joinGroup(TEST_ID_2, req);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 }

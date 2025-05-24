@@ -17,6 +17,7 @@ import click.alarmeet.alarmeetapi.apis.groups.domain.Group;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupCreateDto.GroupCreateReq;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupDetailDto.GroupDetailRes;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupInviteCodeDto.GroupInviteCodeRes;
+import click.alarmeet.alarmeetapi.apis.groups.dto.GroupJoinDto.GroupJoinReq;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupListDto.GroupListRes;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupUpdateDto.GroupUpdateReq;
 import click.alarmeet.alarmeetapi.apis.groups.exception.GroupErrorCode;
@@ -44,13 +45,13 @@ public class GroupUseCase {
 	private final GroupUserMapper groupUserMapper;
 	private final GroupInviteCodeMapper groupInviteCodeMapper;
 
-	private final GroupCreateService groupSaveService;
+	private final GroupCreateService groupCreateService;
 	private final GroupSearchService groupSearchService;
 	private final GroupUpdateService groupUpdateService;
 	private final GroupDeleteService groupDeleteService;
 
 	private final UserSearchService userSearchService;
-	private final UserUpdateService userSaveService;
+	private final UserUpdateService userUpdateService;
 	private final UserDeleteService userDeleteService;
 
 	private final GroupInviteCodeCreateService groupInviteCodeCreateService;
@@ -63,7 +64,7 @@ public class GroupUseCase {
 			throw new GlobalErrorException(GroupErrorCode.GROUP_COUNT_LIMIT_EXCEEDED);
 		}
 
-		Group group = groupSaveService.save(
+		Group group = groupCreateService.save(
 			groupMapper.toGroup(
 				userOid,
 				groupReq.group(),
@@ -71,7 +72,7 @@ public class GroupUseCase {
 			)
 		);
 
-		userSaveService.addGroupId(userOid, group.getId());
+		userUpdateService.addGroupId(userOid, group.getId());
 	}
 
 	public GroupListRes getGroups(String userId) {
@@ -154,5 +155,29 @@ public class GroupUseCase {
 		return groupInviteCodeMapper.toGroupInviteCodeRes(
 			groupInviteCodeSearchService.findByGroupId(groupId)
 		);
+	}
+
+	public void joinGroup(String userId, GroupJoinReq joinReq) {
+		ObjectId userOid = new ObjectId(userId);
+
+		GroupInviteCode groupInviteCode = groupInviteCodeSearchService.find(joinReq.code());
+
+		User user = userSearchService.find(userOid);
+		if (user.isGroupIdExist(groupInviteCode.getGroupId())) {
+			return;
+		}
+
+		long leaderCount = groupSearchService.countByLeaderId(userOid);
+
+		if (!user.canJoinGroup(leaderCount)) {
+			throw new GlobalErrorException(GroupErrorCode.GROUP_COUNT_LIMIT_EXCEEDED);
+		}
+
+		groupUpdateService.addUser(
+			groupInviteCode.getGroupId(),
+			groupUserMapper.toGroupUser(userOid, GroupRole.MEMBER, joinReq)
+		);
+
+		userUpdateService.addGroupId(userOid, groupInviteCode.getGroupId());
 	}
 }

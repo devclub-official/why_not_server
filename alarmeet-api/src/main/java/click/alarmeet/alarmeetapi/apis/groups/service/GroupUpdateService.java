@@ -5,6 +5,7 @@ import java.util.Map;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
+import click.alarmeet.alarmeetapi.apis.groups.domain.Group;
 import click.alarmeet.alarmeetapi.apis.groups.repository.GroupRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -15,5 +16,9 @@ public class GroupUpdateService {
 
 	public void update(ObjectId groupId, Map<String, Object> updateFields) {
 		groupRepository.update(groupId, updateFields);
+	}
+
+	public void addUser(ObjectId groupId, Group.GroupUser groupUser) {
+		groupRepository.addUser(groupId, groupUser);
 	}
 }

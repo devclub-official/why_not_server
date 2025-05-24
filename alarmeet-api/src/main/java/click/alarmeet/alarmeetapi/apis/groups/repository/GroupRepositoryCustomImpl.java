@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Update;
 
 import com.mongodb.client.result.UpdateResult;
 
@@ -27,6 +28,18 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
 		UpdateResult updateResult = mongoTemplate.updateFirst(
 			query(where(ID).is(groupId)),
 			updateBuilder.buildUpdate(updateFields),
+			Group.class
+		);
+		if (updateResult.getMatchedCount() == 0) {
+			throw new MongoDBException(DOCUMENT_NOT_FOUND);
+		}
+	}
+
+	@Override
+	public void addUser(ObjectId groupId, Group.GroupUser groupUser) {
+		UpdateResult updateResult = mongoTemplate.updateFirst(
+			query(where(ID).is(groupId)),
+			new Update().addToSet(USERS, groupUser),
 			Group.class
 		);
 		if (updateResult.getMatchedCount() == 0) {
