@@ -1,5 +1,6 @@
 package click.alarmeet.alarmeetapi.apis.groups.mapper;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -8,6 +9,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 import click.alarmeet.alarmeetapi.apis.groups.domain.Group;
+import click.alarmeet.alarmeetapi.apis.groups.dto.GroupByCodeDto.GroupByCodeRes;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupCreateDto.GroupCreateGroupReq;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupDetailDto.GroupDetailRes;
 import click.alarmeet.alarmeetapi.common.mapper.MapStructBaseConfig;
@@ -38,4 +40,7 @@ public interface GroupMapper {
 	@Mapping(target = "group.imageUrl", source = "imageUrl")
 	@Mapping(target = "users", source = "users")
 	GroupDetailRes toGroupDetailRes(Group group);
+
+	@Mapping(target = "expiredAt", source = "expiredAt")
+	GroupByCodeRes toGroupByCodeRes(Group group, LocalDateTime expiredAt);
 }

@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import click.alarmeet.alarmeetapi.apis.groups.dto.GroupByCodeDto;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupInviteCodeDto;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupJoinDto;
 import click.alarmeet.alarmeetapi.common.response.ErrorResponse;
@@ -45,4 +46,11 @@ public interface GroupInviteApi {
 		@ApiResponse(responseCode = "409", description = "참가 최대 4개까지 가능", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
 	})
 	ResponseEntity<?> joinGroup(@RequestBody @Validated GroupJoinDto.GroupJoinReq group);
+
+	@Operation(summary = "코드로 그룹 조회", description = "초대 코드로 그룹 및 만료 시간 조회")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "그룹 조회"),
+		@ApiResponse(responseCode = "404", description = "코드 없음", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+	})
+	ResponseEntity<GroupByCodeDto.GroupByCodeRes> getGroupByCode(@PathVariable String code);
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import click.alarmeet.alarmeetapi.apis.groups.api.GroupInviteApi;
+import click.alarmeet.alarmeetapi.apis.groups.dto.GroupByCodeDto.GroupByCodeRes;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupInviteCodeDto;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupJoinDto;
 import click.alarmeet.alarmeetapi.apis.groups.usecase.GroupInviteUseCase;
@@ -46,5 +47,11 @@ public class GroupInviteController implements GroupInviteApi {
 	public ResponseEntity<?> joinGroup(@RequestBody @Validated GroupJoinDto.GroupJoinReq req) {
 		groupInviteUseCase.joinGroup(TEST_ID_2, req);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+
+	@Override
+	@GetMapping("/join/{code}")
+	public ResponseEntity<GroupByCodeRes> getGroupByCode(@PathVariable String code) {
+		return ResponseEntity.ok(groupInviteUseCase.getGroupByCode(code));
 	}
 }

@@ -13,10 +13,12 @@ import click.alarmeet.alarmeetapi.apis.groupinvitecodes.service.GroupInviteCodeC
 import click.alarmeet.alarmeetapi.apis.groupinvitecodes.service.GroupInviteCodeSearchService;
 import click.alarmeet.alarmeetapi.apis.groups.constant.GroupRole;
 import click.alarmeet.alarmeetapi.apis.groups.domain.Group;
+import click.alarmeet.alarmeetapi.apis.groups.dto.GroupByCodeDto.GroupByCodeRes;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupInviteCodeDto;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupJoinDto;
 import click.alarmeet.alarmeetapi.apis.groups.exception.GroupErrorCode;
 import click.alarmeet.alarmeetapi.apis.groups.exception.GroupErrorException;
+import click.alarmeet.alarmeetapi.apis.groups.mapper.GroupMapper;
 import click.alarmeet.alarmeetapi.apis.groups.mapper.GroupUserMapper;
 import click.alarmeet.alarmeetapi.apis.groups.service.GroupSearchService;
 import click.alarmeet.alarmeetapi.apis.groups.service.GroupUpdateService;
@@ -32,6 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 @UseCase
 @RequiredArgsConstructor
 public class GroupInviteUseCase {
+	private final GroupMapper groupMapper;
 	private final GroupUserMapper groupUserMapper;
 
 	private final GroupInviteCodeMapper groupInviteCodeMapper;
@@ -107,5 +110,13 @@ public class GroupInviteUseCase {
 		);
 
 		userUpdateService.addGroupId(userOid, groupInviteCode.getGroupId());
+	}
+
+	public GroupByCodeRes getGroupByCode(String code) {
+		GroupInviteCode groupInviteCode = groupInviteCodeSearchService.find(code);
+
+		Group group = groupSearchService.find(groupInviteCode.getGroupId());
+
+		return groupMapper.toGroupByCodeRes(group, groupInviteCode.getExpiredAt());
 	}
 }

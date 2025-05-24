@@ -8,7 +8,7 @@ public final class GroupInviteCodeDto {
 	public record GroupInviteCodeRes(
 		@Schema(description = "초대코드 8자", example = "Aer2R562")
 		String code,
-		@Schema(description = "만기 시간")
+		@Schema(description = "만료 시간")
 		LocalDateTime expiredAt
 	) {
 	}
