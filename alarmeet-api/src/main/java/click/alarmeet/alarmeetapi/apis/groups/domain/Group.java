@@ -51,6 +51,10 @@ public class Group {
 		}
 	}
 
+	public boolean isUserExist(ObjectId id) {
+		return users.stream().anyMatch(user -> user.getId().equals(id));
+	}
+
 	@Getter
 	@NoArgsConstructor(access = AccessLevel.PROTECTED)
 	@ToString

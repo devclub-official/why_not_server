@@ -23,7 +23,7 @@ public final class GroupCreateDto {
 		@NotNull
 		@Size(min = 1, max = 15)
 		String nickname,
-		@Schema(description = "해당 그룹에서 사용할 프로필(nullable)")
+		@Schema(description = "해당 그룹에서 사용할 프로필")
 		@Size(max = 255)
 		String profileImageUrl
 	) {

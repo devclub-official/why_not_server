@@ -1,5 +1,7 @@
 package click.alarmeet.alarmeetapi.apis.groups.mapper;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -7,7 +9,8 @@ import org.mapstruct.Mapping;
 import click.alarmeet.alarmeetapi.apis.groups.constant.GroupRole;
 import click.alarmeet.alarmeetapi.apis.groups.domain.Group;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupCreateDto;
-import click.alarmeet.alarmeetapi.config.MapStructBaseConfig;
+import click.alarmeet.alarmeetapi.apis.groups.dto.GroupDetailDto.GroupDetailRes;
+import click.alarmeet.alarmeetapi.common.mapper.MapStructBaseConfig;
 
 @Mapper(config = MapStructBaseConfig.class)
 public interface GroupUserMapper {
@@ -16,4 +19,6 @@ public interface GroupUserMapper {
 	@Mapping(target = "profileImageUrl", source = "userReq.profileImageUrl")
 	@Mapping(target = "role", source = "role")
 	Group.GroupUser toGroupUser(ObjectId userId, GroupRole role, GroupCreateDto.GroupCreateUserReq userReq);
+
+	List<GroupDetailRes> toGroupDetailRes(List<Group.GroupUser> users);
 }

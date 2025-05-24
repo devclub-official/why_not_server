@@ -7,8 +7,10 @@ import org.bson.types.ObjectId;
 import click.alarmeet.alarmeetapi.apis.groups.constant.GroupRole;
 import click.alarmeet.alarmeetapi.apis.groups.domain.Group;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupCreateDto.GroupCreateReq;
+import click.alarmeet.alarmeetapi.apis.groups.dto.GroupDetailDto.GroupDetailRes;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupListDto.GroupListRes;
 import click.alarmeet.alarmeetapi.apis.groups.exception.GroupErrorCode;
+import click.alarmeet.alarmeetapi.apis.groups.exception.GroupErrorException;
 import click.alarmeet.alarmeetapi.apis.groups.mapper.GroupMapper;
 import click.alarmeet.alarmeetapi.apis.groups.mapper.GroupUserMapper;
 import click.alarmeet.alarmeetapi.apis.groups.service.GroupSaveService;
@@ -57,5 +59,16 @@ public class GroupUseCase {
 		User user = userSearchService.findUser(userOid);
 
 		return new GroupListRes(groupSearchService.findGroups(user.getGroupIds()));
+	}
+
+	public GroupDetailRes getGroup(String userId, ObjectId groupId) {
+		ObjectId userOid = new ObjectId(userId);
+		Group group = groupSearchService.findGroup(groupId);
+
+		if (!group.isUserExist(userOid)) {
+			throw new GroupErrorException(GroupErrorCode.USER_NOT_IN_GROUP);
+		}
+
+		return groupMapper.toGroupDetailRes(group);
 	}
 }

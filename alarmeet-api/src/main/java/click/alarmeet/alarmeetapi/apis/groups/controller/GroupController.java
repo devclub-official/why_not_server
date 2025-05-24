@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import click.alarmeet.alarmeetapi.apis.groups.api.GroupApi;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupCreateDto.GroupCreateReq;
+import click.alarmeet.alarmeetapi.apis.groups.dto.GroupDetailDto.GroupDetailRes;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupListDto.GroupListRes;
 import click.alarmeet.alarmeetapi.apis.groups.usecase.GroupUseCase;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,7 @@ public class GroupController implements GroupApi {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<?> getGroup(@PathVariable ObjectId id) {
-		return null;
+	public ResponseEntity<GroupDetailRes> getGroup(@PathVariable ObjectId id) {
+		return ResponseEntity.ok(groupUseCase.getGroup(TEST_ID, id));
 	}
 }

@@ -9,7 +9,8 @@ import org.mapstruct.Named;
 
 import click.alarmeet.alarmeetapi.apis.groups.domain.Group;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupCreateDto.GroupCreateGroupReq;
-import click.alarmeet.alarmeetapi.config.MapStructBaseConfig;
+import click.alarmeet.alarmeetapi.apis.groups.dto.GroupDetailDto.GroupDetailRes;
+import click.alarmeet.alarmeetapi.common.mapper.MapStructBaseConfig;
 
 @Mapper(
 	config = MapStructBaseConfig.class,
@@ -29,4 +30,12 @@ public interface GroupMapper {
 	) {
 		return List.of(groupUser);
 	}
+
+	@Mapping(target = "group.id", source = "id")
+	@Mapping(target = "group.leaderId", source = "leaderId")
+	@Mapping(target = "group.name", source = "name")
+	@Mapping(target = "group.description", source = "description")
+	@Mapping(target = "group.imageUrl", source = "imageUrl")
+	@Mapping(target = "users", source = "users")
+	GroupDetailRes toGroupDetailRes(Group group);
 }
