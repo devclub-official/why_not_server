@@ -1,9 +1,11 @@
 package click.alarmeet.alarmeetapi.apis.groups.controller;
 
+import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +35,11 @@ public class GroupController implements GroupApi {
 
 	@GetMapping
 	public ResponseEntity<GroupListRes> getGroups() {
-		return ResponseEntity.ok(groupUseCase.getGroupsByOwnerId(TEST_ID));
+		return ResponseEntity.ok(groupUseCase.getGroups(TEST_ID));
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getGroup(@PathVariable ObjectId id) {
+		return null;
 	}
 }

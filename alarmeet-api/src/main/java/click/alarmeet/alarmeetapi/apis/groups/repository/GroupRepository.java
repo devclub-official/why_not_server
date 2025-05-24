@@ -9,7 +9,7 @@ import click.alarmeet.alarmeetapi.apis.groups.domain.Group;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupListDto.GroupListItem;
 
 public interface GroupRepository extends MongoRepository<Group, ObjectId> {
-	long countByOwnerId(ObjectId ownerId);
+	long countByLeaderId(ObjectId leaderId);
 
 	List<GroupListItem> findGroupsByIdIn(List<ObjectId> groupIds);
 }

@@ -24,7 +24,7 @@ import lombok.ToString;
 public class Group {
 	@Id
 	private ObjectId id;
-	private ObjectId ownerId;
+	private ObjectId leaderId;
 	private String name;
 	private String description;
 	private String imageUrl;
@@ -33,18 +33,18 @@ public class Group {
 	private LocalDateTime createdAt;
 
 	@Builder
-	public Group(ObjectId ownerId, String name, String description, String imageUrl, List<GroupUser> users) {
-		validate(ownerId, name, users);
+	public Group(ObjectId leaderId, String name, String description, String imageUrl, List<GroupUser> users) {
+		validate(leaderId, name, users);
 
-		this.ownerId = ownerId;
+		this.leaderId = leaderId;
 		this.name = name;
 		this.description = description;
 		this.imageUrl = imageUrl;
 		this.users = users;
 	}
 
-	private void validate(ObjectId ownerId, String name, List<GroupUser> users) {
-		Objects.requireNonNull(ownerId, "Group owner id cannot be null");
+	private void validate(ObjectId leaderId, String name, List<GroupUser> users) {
+		Objects.requireNonNull(leaderId, "Group leader id cannot be null");
 		Objects.requireNonNull(name, "Group name cannot be null");
 		if (users.isEmpty()) {
 			throw new IllegalArgumentException("Group users cannot be empty");

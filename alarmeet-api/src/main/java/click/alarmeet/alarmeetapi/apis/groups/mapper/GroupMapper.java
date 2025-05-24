@@ -16,7 +16,7 @@ import click.alarmeet.alarmeetapi.config.MapStructBaseConfig;
 	uses = {GroupUserMapper.class}
 )
 public interface GroupMapper {
-	@Mapping(target = "ownerId", source = "userId")
+	@Mapping(target = "leaderId", source = "userId")
 	@Mapping(target = "name", source = "groupReq.name")
 	@Mapping(target = "description", source = "groupReq.description")
 	@Mapping(target = "imageUrl", source = "groupReq.imageUrl")

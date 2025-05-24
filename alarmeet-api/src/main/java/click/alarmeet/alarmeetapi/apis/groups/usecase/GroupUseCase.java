@@ -37,7 +37,7 @@ public class GroupUseCase {
 	public void createGroup(String userId, GroupCreateReq groupReq) {
 		ObjectId userOid = new ObjectId(userId);
 
-		if (groupSearchService.countByOwnerId(userOid) >= GROUP_COUNT_MAX) {
+		if (groupSearchService.countByLeaderId(userOid) >= GROUP_COUNT_MAX) {
 			throw new GlobalErrorException(GroupErrorCode.GROUP_COUNT_LIMIT_EXCEEDED);
 		}
 
@@ -52,7 +52,7 @@ public class GroupUseCase {
 		userSaveService.addGroupId(userOid, group.getId());
 	}
 
-	public GroupListRes getGroupsByOwnerId(String userId) {
+	public GroupListRes getGroups(String userId) {
 		ObjectId userOid = new ObjectId(userId);
 		User user = userSearchService.findUser(userOid);
 
