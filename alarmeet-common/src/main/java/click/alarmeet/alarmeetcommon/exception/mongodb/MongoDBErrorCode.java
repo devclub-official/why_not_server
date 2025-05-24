@@ -1,4 +1,4 @@
-package click.alarmeet.alarmeetcommon.mongodb;
+package click.alarmeet.alarmeetcommon.exception.mongodb;
 
 import click.alarmeet.alarmeetcommon.exception.BaseErrorCode;
 import click.alarmeet.alarmeetcommon.exception.constant.StatusCode;

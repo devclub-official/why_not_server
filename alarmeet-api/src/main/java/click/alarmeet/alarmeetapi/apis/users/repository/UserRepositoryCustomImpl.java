@@ -1,7 +1,7 @@
 package click.alarmeet.alarmeetapi.apis.users.repository;
 
 import static click.alarmeet.alarmeetapi.apis.users.constant.UserFieldConstants.*;
-import static click.alarmeet.alarmeetcommon.mongodb.MongoDBErrorCode.*;
+import static click.alarmeet.alarmeetcommon.exception.mongodb.MongoDBErrorCode.*;
 import static org.springframework.data.mongodb.core.query.Criteria.*;
 import static org.springframework.data.mongodb.core.query.Query.*;
 
@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import com.mongodb.client.result.UpdateResult;
 
 import click.alarmeet.alarmeetapi.apis.users.domain.User;
-import click.alarmeet.alarmeetcommon.mongodb.MongoDBException;
+import click.alarmeet.alarmeetcommon.exception.mongodb.MongoDBException;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

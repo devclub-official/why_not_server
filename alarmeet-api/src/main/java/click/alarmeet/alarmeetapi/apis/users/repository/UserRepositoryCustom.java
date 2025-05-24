@@ -2,7 +2,7 @@ package click.alarmeet.alarmeetapi.apis.users.repository;
 
 import org.bson.types.ObjectId;
 
-import click.alarmeet.alarmeetcommon.mongodb.MongoDBException;
+import click.alarmeet.alarmeetcommon.exception.mongodb.MongoDBException;
 
 public interface UserRepositoryCustom {
 	/**
