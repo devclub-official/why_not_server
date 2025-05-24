@@ -6,7 +6,7 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import click.alarmeet.alarmeetapi.apis.groups.domain.Group;
-import click.alarmeet.alarmeetapi.apis.groups.dto.GroupListDto;
+import click.alarmeet.alarmeetapi.apis.groups.dto.GroupListDto.GroupListItemRes;
 import click.alarmeet.alarmeetapi.apis.groups.exception.GroupErrorCode;
 import click.alarmeet.alarmeetapi.apis.groups.exception.GroupErrorException;
 import click.alarmeet.alarmeetapi.apis.groups.repository.GroupRepository;
@@ -21,7 +21,7 @@ public class GroupSearchService {
 		return groupRepository.countByLeaderId(leaderId);
 	}
 
-	public List<GroupListDto.GroupListItem> findGroups(List<ObjectId> groupIds) {
+	public List<GroupListItemRes> findGroups(List<ObjectId> groupIds) {
 		return groupRepository.findGroupsByIdIn(groupIds);
 	}
 

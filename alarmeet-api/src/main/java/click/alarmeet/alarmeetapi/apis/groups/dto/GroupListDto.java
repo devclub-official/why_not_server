@@ -6,11 +6,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public final class GroupListDto {
 	public record GroupListRes(
-		List<GroupListItem> groups
+		List<GroupListItemRes> groups
 	) {
 	}
 
-	public record GroupListItem(
+	public record GroupListItemRes(
 		@Schema(description = "oid", example = "68309e440cff6c5be112952f")
 		String id,
 		@Schema(description = "참여 그룹 이름")
