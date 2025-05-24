@@ -46,7 +46,7 @@ public class GroupUseCase {
 	public void createGroup(String userId, GroupCreateReq groupReq) {
 		ObjectId userOid = new ObjectId(userId);
 
-		if (groupSearchService.countByLeaderId(userOid) >= GROUP_COUNT_MAX) {
+		if (groupSearchService.countByLeaderId(userOid) >= GROUP_CREATE_MAX_COUNT) {
 			throw new GlobalErrorException(GroupErrorCode.GROUP_COUNT_LIMIT_EXCEEDED);
 		}
 
