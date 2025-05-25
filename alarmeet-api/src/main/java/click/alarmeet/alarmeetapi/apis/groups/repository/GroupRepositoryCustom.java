@@ -5,7 +5,7 @@ import java.util.Map;
 import org.bson.types.ObjectId;
 
 import click.alarmeet.alarmeetapi.apis.groups.domain.Group;
-import click.alarmeet.alarmeetcommon.exception.mongodb.MongoDBException;
+import click.alarmeet.alarmeetcommon.mongodb.dto.MongoCountResult;
 
 public interface GroupRepositoryCustom {
 	/**
@@ -13,12 +13,12 @@ public interface GroupRepositoryCustom {
 	 *
 	 * @param groupId    업데이트할 그룹 ID
 	 * @param updateFields 업데이트 데이터 맵
-	 * @throws MongoDBException 404, DOCUMENT_NOT_FOUND 그룹 존재하지 않는 경우
+	 * @return MongoCountResult matchedCount and modifiedCount
 	 */
-	void update(ObjectId groupId, Map<String, Object> updateFields);
+	MongoCountResult update(ObjectId groupId, Map<String, Object> updateFields);
 
 	/**
-	 * @throws MongoDBException 404, DOCUMENT_NOT_FOUND 그룹 존재하지 않는 경우
+	 * @return MongoCountResult matchedCount and modifiedCount
 	 */
-	void addUser(ObjectId groupId, Group.GroupUser groupUser);
+	MongoCountResult addUser(ObjectId groupId, Group.GroupUser groupUser);
 }

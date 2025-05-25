@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import click.alarmeet.alarmeetapi.apis.groups.domain.Group;
 import click.alarmeet.alarmeetapi.apis.groups.repository.GroupRepository;
+import click.alarmeet.alarmeetcommon.mongodb.dto.MongoCountResult;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -14,11 +15,11 @@ import lombok.RequiredArgsConstructor;
 public class GroupUpdateService {
 	private final GroupRepository groupRepository;
 
-	public void update(ObjectId groupId, Map<String, Object> updateFields) {
-		groupRepository.update(groupId, updateFields);
+	public MongoCountResult update(ObjectId groupId, Map<String, Object> updateFields) {
+		return groupRepository.update(groupId, updateFields);
 	}
 
-	public void addUser(ObjectId groupId, Group.GroupUser groupUser) {
-		groupRepository.addUser(groupId, groupUser);
+	public MongoCountResult addUser(ObjectId groupId, Group.GroupUser groupUser) {
+		return groupRepository.addUser(groupId, groupUser);
 	}
 }

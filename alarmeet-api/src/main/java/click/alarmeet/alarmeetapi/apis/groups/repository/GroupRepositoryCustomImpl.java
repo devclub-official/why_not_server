@@ -1,6 +1,5 @@
 package click.alarmeet.alarmeetapi.apis.groups.repository;
 
-import static click.alarmeet.alarmeetcommon.exception.mongodb.MongoDBErrorCode.*;
 import static click.alarmeet.alarmeetcommon.mongodb.constant.GroupFieldConstants.*;
 import static org.springframework.data.mongodb.core.query.Criteria.*;
 import static org.springframework.data.mongodb.core.query.Query.*;
@@ -15,7 +14,7 @@ import com.mongodb.client.result.UpdateResult;
 
 import click.alarmeet.alarmeetapi.apis.groups.domain.Group;
 import click.alarmeet.alarmeetapi.common.mongodb.MongoUpdateBuilder;
-import click.alarmeet.alarmeetcommon.exception.mongodb.MongoDBException;
+import click.alarmeet.alarmeetcommon.mongodb.dto.MongoCountResult;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -24,26 +23,24 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
 	private final MongoUpdateBuilder updateBuilder;
 
 	@Override
-	public void update(ObjectId groupId, Map<String, Object> updateFields) {
+	public MongoCountResult update(ObjectId groupId, Map<String, Object> updateFields) {
 		UpdateResult updateResult = mongoTemplate.updateFirst(
 			query(where(ID).is(groupId)),
 			updateBuilder.buildUpdate(updateFields),
 			Group.class
 		);
-		if (updateResult.getMatchedCount() == 0) {
-			throw new MongoDBException(DOCUMENT_NOT_FOUND);
-		}
+
+		return MongoCountResult.of(updateResult.getMatchedCount(), updateResult.getModifiedCount());
 	}
 
 	@Override
-	public void addUser(ObjectId groupId, Group.GroupUser groupUser) {
+	public MongoCountResult addUser(ObjectId groupId, Group.GroupUser groupUser) {
 		UpdateResult updateResult = mongoTemplate.updateFirst(
 			query(where(ID).is(groupId)),
 			new Update().addToSet(USERS, groupUser),
 			Group.class
 		);
-		if (updateResult.getMatchedCount() == 0) {
-			throw new MongoDBException(DOCUMENT_NOT_FOUND);
-		}
+
+		return MongoCountResult.of(updateResult.getMatchedCount(), updateResult.getModifiedCount());
 	}
 }

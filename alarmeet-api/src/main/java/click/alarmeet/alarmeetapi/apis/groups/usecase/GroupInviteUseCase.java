@@ -27,6 +27,7 @@ import click.alarmeet.alarmeetapi.apis.users.service.UserSearchService;
 import click.alarmeet.alarmeetapi.apis.users.service.UserUpdateService;
 import click.alarmeet.alarmeetapi.common.annotation.UseCase;
 import click.alarmeet.alarmeetcommon.exception.GlobalErrorException;
+import click.alarmeet.alarmeetcommon.mongodb.dto.MongoCountResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -104,12 +105,17 @@ public class GroupInviteUseCase {
 			throw new GlobalErrorException(GroupErrorCode.GROUP_COUNT_LIMIT_EXCEEDED);
 		}
 
-		groupUpdateService.addUser(
+		MongoCountResult mongoCountResult = groupUpdateService.addUser(
 			groupInviteCode.getGroupId(),
 			groupUserMapper.toGroupUser(userOid, GroupRole.MEMBER, joinReq)
 		);
-
-		userUpdateService.addGroupId(userOid, groupInviteCode.getGroupId());
+		if (mongoCountResult.isModified()) {
+			// 수정이 되면 유저에 추가
+			userUpdateService.addGroupId(userOid, groupInviteCode.getGroupId());
+		} else if (!mongoCountResult.isMatched()) {
+			// 매치도 안된 경우 404
+			throw new GroupErrorException(GroupErrorCode.GROUP_NOT_FOUND);
+		}
 	}
 
 	public GroupByCodeRes getGroupByCode(String code) {

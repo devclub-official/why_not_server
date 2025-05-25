@@ -24,6 +24,7 @@ import click.alarmeet.alarmeetapi.apis.users.service.UserSearchService;
 import click.alarmeet.alarmeetapi.apis.users.service.UserUpdateService;
 import click.alarmeet.alarmeetapi.common.annotation.UseCase;
 import click.alarmeet.alarmeetcommon.exception.GlobalErrorException;
+import click.alarmeet.alarmeetcommon.mongodb.dto.MongoCountResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -87,7 +88,10 @@ public class GroupUseCase {
 			throw new GroupErrorException(GroupErrorCode.ROLE_NOT_ALLOWED);
 		}
 
-		groupUpdateService.update(groupId, groupReq.toUpdateMap());
+		MongoCountResult mongoCountResult = groupUpdateService.update(groupId, groupReq.toUpdateMap());
+		if (!mongoCountResult.isMatched()) {
+			throw new GroupErrorException(GroupErrorCode.GROUP_NOT_FOUND);
+		}
 	}
 
 	public void deleteGroup(ObjectId groupId, String userId) {

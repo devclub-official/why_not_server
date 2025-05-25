@@ -42,7 +42,7 @@ public interface GroupInviteApi {
 	@Operation(summary = "그룹 참가", description = "초대 코드를 통해 그룹 참가")
 	@ApiResponses(value = {
 		@ApiResponse(responseCode = "201", description = "그룹 참가"),
-		@ApiResponse(responseCode = "404", description = "코드 없음", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+		@ApiResponse(responseCode = "404", description = "코드 또는 그룹 없음", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
 		@ApiResponse(responseCode = "409", description = "참가 최대 4개까지 가능", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
 	})
 	ResponseEntity<?> joinGroup(@RequestBody @Validated GroupJoinDto.GroupJoinReq group);

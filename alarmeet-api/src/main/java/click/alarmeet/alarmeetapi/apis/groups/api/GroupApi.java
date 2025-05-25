@@ -50,7 +50,8 @@ public interface GroupApi {
 	@Parameter(name = "groupId", required = true, in = PATH, schema = @Schema(type = "string"))
 	@ApiResponses(value = {
 		@ApiResponse(responseCode = "204", description = "그룹 업데이트"),
-		@ApiResponse(responseCode = "403", description = "권한 없음", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+		@ApiResponse(responseCode = "403", description = "권한 없음", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+		@ApiResponse(responseCode = "404", description = "그룹 존재하지 않을 떄", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
 	})
 	ResponseEntity<?> updateGroup(@PathVariable ObjectId groupId, @RequestBody @Validated GroupUpdateReq group);
 
