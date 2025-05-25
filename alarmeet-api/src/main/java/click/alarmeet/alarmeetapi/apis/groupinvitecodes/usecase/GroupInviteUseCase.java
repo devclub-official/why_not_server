@@ -1,4 +1,4 @@
-package click.alarmeet.alarmeetapi.apis.groups.usecase;
+package click.alarmeet.alarmeetapi.apis.groupinvitecodes.usecase;
 
 import static click.alarmeet.alarmeetapi.apis.groupinvitecodes.constant.GroupInviteCodeConstants.*;
 import static click.alarmeet.alarmeetapi.apis.groupinvitecodes.exception.GroupInviteCodeErrorCode.*;

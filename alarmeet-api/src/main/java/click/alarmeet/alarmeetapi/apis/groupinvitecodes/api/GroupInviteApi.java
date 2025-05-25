@@ -1,4 +1,4 @@
-package click.alarmeet.alarmeetapi.apis.groups.api;
+package click.alarmeet.alarmeetapi.apis.groupinvitecodes.api;
 
 import static io.swagger.v3.oas.annotations.enums.ParameterIn.*;
 
