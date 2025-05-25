@@ -33,8 +33,8 @@ public class GroupController implements GroupApi {
 
 	@Override
 	@PostMapping
-	public ResponseEntity<?> createGroup(@RequestBody @Validated GroupCreateReq group) {
-		groupUseCase.createGroup(TEST_ID, group);
+	public ResponseEntity<?> createGroup(@RequestBody @Validated GroupCreateReq req) {
+		groupUseCase.createGroup(TEST_ID, req);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
@@ -45,23 +45,22 @@ public class GroupController implements GroupApi {
 	}
 
 	@Override
-	@GetMapping("/{id}")
-	public ResponseEntity<GroupDetailRes> getGroup(@PathVariable ObjectId id) {
-		return ResponseEntity.ok(groupUseCase.getGroup(id, TEST_ID));
+	@GetMapping("/{groupId}")
+	public ResponseEntity<GroupDetailRes> getGroup(@PathVariable ObjectId groupId) {
+		return ResponseEntity.ok(groupUseCase.getGroup(groupId, TEST_ID));
 	}
 
 	@Override
-	@PutMapping("/{id}")
-	public ResponseEntity<?> updateGroup(@PathVariable ObjectId id, @RequestBody @Validated GroupUpdateReq group) {
-		groupUseCase.updateGroup(id, TEST_ID, group);
+	@PutMapping("/{groupId}")
+	public ResponseEntity<?> updateGroup(@PathVariable ObjectId groupId, @RequestBody @Validated GroupUpdateReq req) {
+		groupUseCase.updateGroup(groupId, TEST_ID, req);
 		return ResponseEntity.noContent().build();
 	}
 
 	@Override
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteGroup(@PathVariable ObjectId id) {
-		groupUseCase.deleteGroup(id, TEST_ID);
-
+	@DeleteMapping("/{groupId}")
+	public ResponseEntity<?> deleteGroup(@PathVariable ObjectId groupId) {
+		groupUseCase.deleteGroup(groupId, TEST_ID);
 		return ResponseEntity.noContent().build();
 	}
 }

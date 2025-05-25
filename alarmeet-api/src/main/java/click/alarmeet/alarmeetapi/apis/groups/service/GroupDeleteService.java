@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 public class GroupDeleteService {
 	private final GroupRepository groupRepository;
 
-	public void deleteGroup(ObjectId groupId, ObjectId leaderId) {
+	public void delete(ObjectId groupId, ObjectId leaderId) {
 		groupRepository.deleteByIdAndLeaderId(groupId, leaderId);
 	}
 }

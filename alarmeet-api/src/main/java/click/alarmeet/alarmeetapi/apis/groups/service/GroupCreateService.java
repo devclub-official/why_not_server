@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 public class GroupCreateService {
 	private final GroupRepository groupRepository;
 
-	public Group create(Group group) {
+	public Group save(Group group) {
 		return groupRepository.save(group);
 	}
 }

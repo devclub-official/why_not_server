@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 public class UserSearchService {
 	private final UserRepository userRepository;
 
-	public User findUser(ObjectId id) {
+	public User find(ObjectId id) {
 		return userRepository.findById(id).orElseThrow(() -> new UserErrorException(UserErrorCode.USER_NOT_FOUND));
 	}
 }

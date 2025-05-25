@@ -15,7 +15,7 @@ public final class GroupDetailDto {
 	public record GroupDetailGroupRes(
 		@Schema(description = "oid", example = "68309e440cff6c5be112952f")
 		String id,
-		@Schema(description = "oid", example = "68309e440cff6c5be112952f")
+		@Schema(description = "leader id", example = "68309e440cff6c5be112952f")
 		String leaderId,
 		@Schema(description = "참여 그룹 이름")
 		String name,

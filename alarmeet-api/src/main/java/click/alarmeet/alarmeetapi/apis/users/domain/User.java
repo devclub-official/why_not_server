@@ -1,5 +1,7 @@
 package click.alarmeet.alarmeetapi.apis.users.domain;
 
+import static click.alarmeet.alarmeetapi.apis.groups.constant.GroupConstants.*;
+
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -19,4 +21,12 @@ public class User {
 	@Id
 	private ObjectId id;
 	private List<ObjectId> groupIds;
+
+	public boolean canJoinGroup(long leaderGroupCount) {
+		return groupIds.size() - leaderGroupCount < GROUP_JOIN_MAX_COUNT;
+	}
+
+	public boolean isGroupIdExist(ObjectId groupId) {
+		return groupIds.stream().anyMatch(id -> id.equals(groupId));
+	}
 }

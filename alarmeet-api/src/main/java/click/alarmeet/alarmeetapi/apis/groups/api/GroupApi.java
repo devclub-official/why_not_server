@@ -44,21 +44,22 @@ public interface GroupApi {
 		@ApiResponse(responseCode = "403", description = "유저가 해당 그룹에 존재하지 않을 때", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
 		@ApiResponse(responseCode = "404", description = "그룹 존재하지 않을 떄", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
 	})
-	ResponseEntity<GroupDetailRes> getGroup(@PathVariable ObjectId id);
+	ResponseEntity<GroupDetailRes> getGroup(@PathVariable ObjectId groupId);
 
 	@Operation(summary = "그룹 업데이트")
-	@Parameter(name = "id", required = true, in = PATH, schema = @Schema(type = "string"))
+	@Parameter(name = "groupId", required = true, in = PATH, schema = @Schema(type = "string"))
 	@ApiResponses(value = {
 		@ApiResponse(responseCode = "204", description = "그룹 업데이트"),
-		@ApiResponse(responseCode = "403", description = "권한 없음", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+		@ApiResponse(responseCode = "403", description = "권한 없음", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+		@ApiResponse(responseCode = "404", description = "그룹 존재하지 않을 떄", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
 	})
-	ResponseEntity<?> updateGroup(@PathVariable ObjectId id, @RequestBody @Validated GroupUpdateReq group);
+	ResponseEntity<?> updateGroup(@PathVariable ObjectId groupId, @RequestBody @Validated GroupUpdateReq group);
 
 	@Operation(summary = "그룹 삭제")
-	@Parameter(name = "id", required = true, in = PATH, schema = @Schema(type = "string"))
+	@Parameter(name = "groupId", required = true, in = PATH, schema = @Schema(type = "string"))
 	@ApiResponses(value = {
 		@ApiResponse(responseCode = "204", description = "그룹 삭제"),
 		@ApiResponse(responseCode = "403", description = "권한 없음", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
 	})
-	ResponseEntity<?> deleteGroup(@PathVariable ObjectId id);
+	ResponseEntity<?> deleteGroup(@PathVariable ObjectId groupId);
 }
