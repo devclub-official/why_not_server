@@ -31,7 +31,7 @@ public interface GroupInviteApi {
 	})
 	ResponseEntity<GroupInviteCodeDto.GroupInviteCodeRes> createGroupInviteCode(@PathVariable ObjectId groupId);
 
-	@Operation(summary = "초대 코드 발급", description = "초대 코드 조회")
+	@Operation(summary = "초대 코드 조회", description = "초대 코드 조회")
 	@Parameter(name = "groupId", required = true, in = PATH, schema = @Schema(type = "string"))
 	@ApiResponses(value = {
 		@ApiResponse(responseCode = "200", description = "발급한 코드"),
