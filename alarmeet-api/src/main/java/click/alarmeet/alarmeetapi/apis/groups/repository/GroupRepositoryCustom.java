@@ -1,6 +1,7 @@
 package click.alarmeet.alarmeetapi.apis.groups.repository;
 
 import java.util.Map;
+import java.util.Optional;
 
 import org.bson.types.ObjectId;
 
@@ -8,6 +9,8 @@ import click.alarmeet.alarmeetapi.apis.groups.domain.Group;
 import click.alarmeet.alarmeetcommon.mongodb.dto.MongoCountResult;
 
 public interface GroupRepositoryCustom {
+	Optional<Group.GroupUser> getUser(ObjectId groupId, ObjectId userId);
+
 	/**
 	 * Map을 통한 값 업데이트
 	 *
@@ -21,4 +24,9 @@ public interface GroupRepositoryCustom {
 	 * @return MongoCountResult matchedCount and modifiedCount
 	 */
 	MongoCountResult addUser(ObjectId groupId, Group.GroupUser groupUser);
+
+	/**
+	 * @return MongoCountResult matchedCount and modifiedCount
+	 */
+	MongoCountResult updateUser(ObjectId groupId, ObjectId userId, String nickname, String profileImageUrl);
 }

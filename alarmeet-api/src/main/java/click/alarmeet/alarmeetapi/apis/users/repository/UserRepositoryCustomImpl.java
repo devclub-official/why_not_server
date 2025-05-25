@@ -21,7 +21,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 	@Override
 	public MongoCountResult addGroupId(ObjectId userId, ObjectId groupId) {
 		UpdateResult updateResult = mongoTemplate.updateFirst(
-			query(where(ID).is(userId)),
+			query(where(MONGO_ID).is(userId)),
 			new Update().addToSet(GROUP_IDS, groupId),
 			User.class
 		);
@@ -32,7 +32,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 	@Override
 	public MongoCountResult deleteGroupId(ObjectId userId, ObjectId groupId) {
 		UpdateResult updateResult = mongoTemplate.updateFirst(
-			query(where(ID).is(userId)),
+			query(where(MONGO_ID).is(userId)),
 			new Update().pull(GROUP_IDS, groupId),
 			User.class
 		);

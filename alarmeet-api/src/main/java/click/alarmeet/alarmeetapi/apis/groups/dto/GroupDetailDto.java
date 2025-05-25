@@ -13,7 +13,7 @@ public final class GroupDetailDto {
 	}
 
 	public record GroupDetailGroupRes(
-		@Schema(description = "oid", example = "68309e440cff6c5be112952f")
+		@Schema(description = "id", example = "68309e440cff6c5be112952f")
 		String id,
 		@Schema(description = "leader id", example = "68309e440cff6c5be112952f")
 		String leaderId,
@@ -27,7 +27,7 @@ public final class GroupDetailDto {
 	}
 
 	public record GroupDetailUserRes(
-		@Schema(description = "oid", example = "68309e440cff6c5be112952f")
+		@Schema(description = "id", example = "68309e440cff6c5be112952f")
 		String id,
 		@Schema(description = "해당 그룹 안에서 닉네임", example = "user nickname")
 		String nickname,
