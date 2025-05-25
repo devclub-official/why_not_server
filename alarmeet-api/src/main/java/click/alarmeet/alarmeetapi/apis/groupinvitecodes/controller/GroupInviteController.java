@@ -1,4 +1,4 @@
-package click.alarmeet.alarmeetapi.apis.groups.controller;
+package click.alarmeet.alarmeetapi.apis.groupinvitecodes.controller;
 
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import click.alarmeet.alarmeetapi.apis.groups.api.GroupInviteApi;
+import click.alarmeet.alarmeetapi.apis.groupinvitecodes.api.GroupInviteApi;
+import click.alarmeet.alarmeetapi.apis.groupinvitecodes.usecase.GroupInviteUseCase;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupByCodeDto.GroupByCodeRes;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupInviteCodeDto;
 import click.alarmeet.alarmeetapi.apis.groups.dto.GroupJoinDto;
-import click.alarmeet.alarmeetapi.apis.groups.usecase.GroupInviteUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
