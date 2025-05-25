@@ -10,6 +10,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import click.alarmeet.alarmeetapi.apis.groups.constant.GroupRole;
 import lombok.AccessLevel;
@@ -74,6 +75,7 @@ public class Group {
 	@NoArgsConstructor(access = AccessLevel.PROTECTED)
 	@ToString
 	public static class GroupUser {
+		@Field(name = "id")
 		private ObjectId id;
 		private String nickname;
 		private String profileImageUrl;
