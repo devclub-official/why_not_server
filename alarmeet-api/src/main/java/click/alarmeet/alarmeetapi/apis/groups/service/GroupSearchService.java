@@ -28,4 +28,9 @@ public class GroupSearchService {
 	public Group find(ObjectId id) {
 		return groupRepository.findById(id).orElseThrow(() -> new GroupErrorException(GroupErrorCode.GROUP_NOT_FOUND));
 	}
+
+	public Group.GroupUser getUser(ObjectId groupId, ObjectId userId) {
+		return groupRepository.getUser(groupId, userId)
+			.orElseThrow(() -> new GroupErrorException(GroupErrorCode.GROUP_USER_NOT_FOUND));
+	}
 }

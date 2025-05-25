@@ -1,6 +1,7 @@
 package click.alarmeet.alarmeetapi.apis.groups.repository;
 
 import java.util.Map;
+import java.util.Optional;
 
 import org.bson.types.ObjectId;
 
@@ -21,4 +22,6 @@ public interface GroupRepositoryCustom {
 	 * @return MongoCountResult matchedCount and modifiedCount
 	 */
 	MongoCountResult addUser(ObjectId groupId, Group.GroupUser groupUser);
+
+	Optional<Group.GroupUser> getUser(ObjectId groupId, ObjectId userId);
 }

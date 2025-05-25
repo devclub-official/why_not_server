@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum GroupErrorCode implements BaseErrorCode {
 	GROUP_NOT_FOUND(StatusCode.NOT_FOUND, "group not found"),
+	GROUP_USER_NOT_FOUND(StatusCode.NOT_FOUND, "group usernot found"),
 
 	USER_NOT_IN_GROUP(StatusCode.FORBIDDEN, "user not in group"),
 	ROLE_NOT_ALLOWED(StatusCode.FORBIDDEN, "role not allowed"),
